@@ -1,0 +1,112 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+const int MAX_PRODUCTS = 100;
+
+struct Product {
+    string name;
+    string shop;
+    double price;
+    string units;
+};
+
+void displayProducts(Product* products, int count) {
+    cout << "List of products: " << endl;
+    for (int i = 0; i < count; ++i) {
+        cout << "Name: " << products[i].name << endl;
+        cout << "Shop: " << products[i].shop << endl;
+        cout << "Price: " << products[i].price << " grn" << endl;
+        cout << "Units: " << products[i].units << endl << endl;
+        
+    }
+}
+
+void addProduct(Product* products, int& count) {
+    if (count >= MAX_PRODUCTS) {
+        cout << "Maximum number of products reached." << endl;
+        return;
+    }
+
+    Product newProduct;
+    cout << "Adding a new product" << endl;
+   
+
+    cout << "Input name product: ";
+    cin >> newProduct.name;
+
+    cout << "Input shop name: ";
+    cin >> newProduct.shop;
+
+    cout << "Input product price: ";
+    cin >> newProduct.price;
+
+    cout << "Input units product: ";
+    cin >> newProduct.units;
+
+    products[count] = newProduct;
+    ++count;
+    cout << "Product added to the list." << endl;
+
+}
+
+void deleteProduct(Product* products, int& count) {
+    if (count == 0) {
+        cout << "The list of products is empty." << endl;
+        return;
+    }
+
+    cout << "Removing a product" << endl;
+    cout << "Enter the index of the product to remove (from 0 to " << count - 1 << "): ";
+    int index;
+    cin >> index;
+    if (index >= 0 && index < count) {
+        for (int i = index; i < count - 1; ++i) {
+            products[i] = products[i + 1];
+        }
+        --count;
+        cout << "Product removed from the list." << endl;
+    }
+    else {
+        cout << "Invalid product index." << endl;
+    }
+}
+
+
+
+int main() {
+    Product products[MAX_PRODUCTS];
+    int productCount = 0;
+
+       
+
+    while (true) {
+        cout << "1. Display a list of products" << endl;
+        cout << "2. Add product" << endl;
+        cout << "3. Delete product" << endl;
+        cout << "0. Exit" << endl;
+        cout << "Select option: " << endl;
+        int option;
+        cin >> option;
+
+        switch (option) {
+        case 1:
+            displayProducts(products, productCount);
+            break;
+        case 2:
+            addProduct(products, productCount);
+            break;
+        case 3:
+            deleteProduct(products, productCount);
+            break;
+        case 0:
+            return 0;
+        default:
+            cout << "error" << endl;
+            break;
+        }
+
+        cout << endl;
+    }
+}
